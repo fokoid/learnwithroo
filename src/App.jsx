@@ -39,11 +39,16 @@ class CroppedImage extends Component {
 	}
 	
 	componentDidMount = () => {
-		const image = new Image()
+		let image = new Image()
 		image.onload = () => {
-			const context = this.refs.canvas.getContext('2d')
-			console.log(image.width, image.height, 300*image.width/image.height)
-			context.drawImage(image, 0, 0, image.width, image.height, 0, 0, 300*image.width/image.height, 300)
+			
+			let context = this.refs.canvas.getContext('2d')
+			context.imageSmoothingEnabled = false
+			const ratio = Math.max(image.width/this.refs.canvas.width, image.height/this.refs.canvas.height)
+			image.width = image.width/ratio
+			image.height = image.height/ratio
+			context.drawImage(image, 0, 0, image.width, image.height)
+			context.strokeRect(this.props.rect.left/ratio, this.props.rect.top/ratio, this.props.rect.width/ratio, this.props.rect.height/ratio)
 		}
 		image.src=this.props.src
 	}
