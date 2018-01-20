@@ -25,7 +25,7 @@ class App extends Component {
   render = () => (
 	<div>
 		<header id='title'>{this.state.title}</header>
-		<div id='score'>{this.state.score}</div>
+		<div id='score'> Score {this.state.score}</div>
 		<div id='image'>
 		    <img src={this.state.image.url} />
 		</div>
