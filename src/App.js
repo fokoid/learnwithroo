@@ -2,20 +2,41 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+const emotions = {
+  happy: 'Happy',
+  sad: 'Sad',
+  disgust: 'Disgusted',
+  surprise: 'Surprised',
+  fear: 'Afraid',
+  anger: 'Angry',
+  contempt: 'Contempt',
+  neutral: 'Neutral'
+}
+
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
-    );
+  state = {
+	  title: 'facehaste.com',
+	  image: {
+		  url: logo,
+		  emotion: 'happy'
+	  },
+	  score: 0
   }
+  render = () => (
+	<div>
+		<header id='title'>{this.state.title}</header>
+		<div id='score'>{this.state.score}</div>
+		<div id='image'>
+		    <img src={this.state.image.url} />
+		</div>
+		<div id='buttons'>
+		{Object.keys(emotions).map(emotion => (
+		    <button>{emotions[emotion]}</button>
+		))}
+		<button>Pass</button>
+		</div>
+	</div>
+  )
 }
 
 export default App;
