@@ -15,7 +15,7 @@ const emotions = {
 
 class App extends Component {
   state = {
-	  title: 'facehaste.com',
+	  title: 'empathisr',
 	  image: {
 		  url: logo,
 		  emotion: 'happy'
