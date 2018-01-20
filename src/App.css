@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
 #title {
 	padding: 25px; 
 	font-size: 200%;
 }
 div {
-	text-align: center; 
+	text-align: center;
 }
 img {
 	height: 300px;
@@ -14,4 +16,8 @@ button {
 	background-color: #e7e7e7; 
 	color: black;
 	padding: 10px 15px;
+}
+
+body{
+	font-family: 'Roboto', sans-serif;
 }
