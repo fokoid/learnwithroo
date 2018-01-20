@@ -29,17 +29,38 @@ const getEmotions = image => fetch(
   }
 ).then(response => response.json())
 
+class CroppedImage extends Component {
+	state = {
+		image: null
+	}
+	
+	render = () => {
+		return <canvas ref="canvas"></canvas>
+	}
+	
+	componentDidMount = () => {
+		const image = new Image()
+		image.onload = () => {
+			const context = this.refs.canvas.getContext('2d')
+			console.log(image.width, image.height, 300*image.width/image.height)
+			context.drawImage(image, 0, 0, image.width, image.height, 0, 0, 300*image.width/image.height, 300)
+		}
+		image.src=this.props.src
+	}
+}
+
 class App extends Component {
   state = {
     title: 'empathizr',
     score: 0,
-    loading: false
+    loading: false,
+	num: 0
   }
 
   onFileSelected = async e => {
     this.setState({ loading: true })
 
-    const images = [].concat.apply([], await Promise.all(
+    let images = [].concat.apply([], await Promise.all(
       _.map(
         _.take(e.target.files, MAX_IMAGES),
         async image => _.map(
@@ -52,40 +73,55 @@ class App extends Component {
         )
       )
     ))
-
+	
+	images = _.shuffle(images)
     this.setState({ images, loading: false })
   }
-
-  render = () => (
-    <div>
-      <header id='title'>{this.state.title}</header>
-      <p hidden={!this.state.loading}>Loading...</p>
-      <div id='score'>{this.state.score}</div>
-      <div id='input'>
-        <input
-          multiple
-          type='file'
-          id='files'
-          onChange={this.onFileSelected}
-        />
-      </div>
-      <div id='image'>
-        { this.state.image && <img
-          src={window.URL.createObjectURL(this.state.image)}
-          alt='Test'
-        />
-        }
-      </div>
-      <div id='buttons'>
-        {Object.keys(emotions).map(emotion => (
-        <button key={emotion}>
-          {emotions[emotion]}
-        </button>
-        ))}
-        <button>Pass</button>
-      </div>
-    </div>
-    )
+  
+  
+  render = () => { 
+    let picture
+	if (this.state.loading){
+		picture = <div> Loading </div> 
+	} else if (this.state.images) {
+		if (this.state.images.length >0){
+			
+			picture = <div>
+				<div id='progress'>{this.state.num+1}/{this.state.images.length}</div>
+				<div id='score'>{this.state.score}</div>
+				<CroppedImage hidden ref="image"
+				  src={window.URL.createObjectURL(this.state.images[this.state.num].image)}
+				  rect={this.state.images[this.state.num].faceRectangle}
+				  alt='Test'
+				/>
+				<div id='buttons'>
+				{Object.keys(emotions).map(emotion => (
+				<button key={emotion}>
+				  {emotions[emotion]}
+				</button>
+				))}
+				<button>Pass</button>
+			  </div>
+			</div>
+		} else {
+			picture = <div> No faces found! Please try again! </div>
+		}
+	} else  {
+		picture = <div id='input'>
+		<input
+		  multiple
+		  type='file'
+		  id='files'
+		  onChange={this.onFileSelected}
+		/>
+	  </div>
+	}
+	return (<div>
+	  <header id='title'>{this.state.title}</header>
+	  {picture}
+	</div>
+	)
+  }
 }
 
 export default App
