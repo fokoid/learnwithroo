@@ -31,7 +31,7 @@ const getEmotions = image => fetch(
 
 class App extends Component {
   state = {
-    title: 'facehaste.com',
+    title: 'empathizr',
     score: 0,
     loading: false
   }
