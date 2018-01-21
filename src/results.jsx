@@ -2,7 +2,7 @@ import React from 'react'
 
 const Results = ({score, restartCallback}) => (
   <div id='results'>
-    You scored {score} point{score !== 1 ? 's' : ''}!
+    You scored <span id="score">{score}</span> point{score !== 1 ? 's' : ''}!
     <div>
       <button id='restart' onClick={restartCallback}>
         Restart

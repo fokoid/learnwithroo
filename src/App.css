@@ -28,6 +28,17 @@ div {
   cursor: pointer;
 }
 
+#results{
+	font-size: 30px;
+}
+
+#results span{
+	border: none; 
+	color: green;
+	font-size: 50px;
+	font-weight:5px;
+}
+
 button {
   margin: 10px;
   border: none; 
