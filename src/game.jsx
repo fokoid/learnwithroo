@@ -108,6 +108,10 @@ class Game extends Component {
       />}
       {this.state.done && <Results score={this.state.score} restartCallback={this.restart} />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
+      <p>
+        This is a tool to help autistic children learn to recognize emotions.
+        You can read more on the <a href='/about'>about page</a>.
+      </p>
     </div>
   )
 }
