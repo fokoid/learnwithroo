@@ -111,7 +111,7 @@ class App extends Component {
 		if (this.state.images.length >0){
 			
 			picture = <div>
-				<div className="">{this.state.score}</div>
+				<div id="score">SCORE:{this.state.score}</div>
 				<CroppedImage hidden ref="image"
 				  src={window.URL.createObjectURL(this.state.images[this.state.num].image)}
 				  rect={this.state.images[this.state.num].faceRectangle}
@@ -141,7 +141,11 @@ class App extends Component {
 		  type='file'
 		  id='files'
 		  onChange={this.onFileSelected}
+		  className="inputfile"
 		/>
+		<label htmlFor="file"><strong>Choose a file</strong></label>
+
+		<p>OR</p>
 		<Uploader callback={this.onFileSelected}></Uploader>
 	  </div>
 	  

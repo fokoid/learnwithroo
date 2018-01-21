@@ -21,7 +21,6 @@ canvas{
 	padding:10px;
 }
 
-
 button {
 	margin: 10px;
 	border: none; 
@@ -41,19 +40,57 @@ body{
 	margin-right: 200px;
 }
 
+#score{
+	font-size: 30px; 
+	font-family: Consolas;
+	color: black;
+}
+
+
+/*upload fil page*/
+
 div .uploader {
 	background-color: #e6f2ff;
     outline: 2px dashed #1a8cff;
     outline-offset: -10px;
-	width: 600px;
-	height: 250px;
+	width: 50%;
+	height: 300px;
 	color:black; 
 	padding: 20px;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	margin-right: auto;
 	margin-left: auto;
-	vertical-align: middle;
-	display: inline-block;
 }
+
+.inputfile {
+	width: 100px;
+	height: 200px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+}
+
+.inputfile + label {
+    color: white;
+    background-color: #1A5276  ;
+    display: inline-block;
+	padding: 5px 10px;
+	z-index:-1;
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #2E86C1 ;
+}
+
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+	pointer-events: none;
+}
+
 
