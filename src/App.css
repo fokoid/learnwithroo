@@ -8,11 +8,32 @@
 div {
 	text-align: center;
 }
+#pass {
+    background-color: #4CAF50; /* Green */
+	border-radius:5px;
+    border: none;
+    color: white;
+    padding: 7.5px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	transition: all 0.5s;
+	cursor: pointer;
+}
 
-buttons {
+
+button {
 	margin-right: 50px;
 	margin-left: 50px;
+	margin: 10px;
+	border: none; 
+	background-color: #e7e7e7; 
+	color: black;
+	padding: 10px 15px;
 }
+
+
 
 canvas{
     margin-left: auto;
@@ -21,13 +42,7 @@ canvas{
 	padding:10px;
 }
 
-button {
-	margin: 10px;
-	border: none; 
-	background-color: #e7e7e7; 
-	color: black;
-	padding: 10px 15px;
-}
+
 
 body{
 	font-family: 'Roboto', sans-serif;
@@ -41,11 +56,18 @@ body{
 }
 
 #score{
-	font-size: 30px; 
+	margin: 0 auto;
+	border-radius: 3px;
+	width: 125px;
+	border: 2px solid black;
+	font-size: 20px; 
 	font-family: Consolas;
 	color: black;
 }
 
+#logogif{
+	width: 40px;
+}
 
 /*upload fil page*/
 

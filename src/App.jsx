@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import './App.css'
 import apiKey from './api-key.js'
+import logo from './media/logo.gif'
 var FileDrop = require("react-file-drop");
 
 // max images imported at a time
@@ -75,7 +76,7 @@ class Uploader extends Component {
 
 class App extends Component {
   state = {
-    title: 'empathizr',
+    title: 'LRU',
     score: 0,
     loading: false,
 	num: 0
@@ -106,30 +107,29 @@ class App extends Component {
   render = () => { 
     let picture
 	if (this.state.loading){
-		picture = <div> Loading </div> 
+		picture = <div> Loading... </div> 
 	} else if (this.state.images) {
 		if (this.state.images.length >0){
-			
 			picture = <div>
-				<div id="score">SCORE:{this.state.score}</div>
+				<div id="score">SCORE: {this.state.score}</div>
 				<CroppedImage hidden ref="image"
 				  src={window.URL.createObjectURL(this.state.images[this.state.num].image)}
 				  rect={this.state.images[this.state.num].faceRectangle}
 				  alt='Test'
-				/>
+				/> 
 				<div id='buttons'>
-				{Object.keys(emotions).map(emotion => (
-				<button key={emotion}>
-				  {emotions[emotion]}
-				</button>
-				))}
-				<button>Pass</button>
-				<div className="w3-light-grey w3-round">
-					<div className="w3-container w3-blue w3-round" style={{width: (this.state.num+1)*100/this.state.images.length+"%"}}>
-					{this.state.num+1}/{this.state.images.length}
+					{Object.keys(emotions).map(emotion => (
+						<button key={emotion}>
+						  {emotions[emotion]}
+						</button>
+					))}
+					<div><button id="pass">Pass</button></div>
+					<div className="w3-light-grey w3-round">
+						<div className="w3-container w3-blue w3-round" style={{width: (this.state.num+1)*100/this.state.images.length+"%"}}>
+						   {this.state.num+1}/{this.state.images.length}
+						</div>
 					</div>
-				</div>
-			  </div>
+			    </div>
 			</div>
 		} else {
 			picture = <div> No faces found! Please try again! </div>
@@ -151,7 +151,10 @@ class App extends Component {
 	  
 	}
 	return (<div>
-	  <header id='title'>{this.state.title}</header>
+	  <header id='title'>
+	  {this.state.title} &nbsp;
+	  <img id="logogif" alt="" src={logo}></img>
+	  </header>
 	  {picture}
 	</div>
 	
