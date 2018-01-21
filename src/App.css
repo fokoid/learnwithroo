@@ -2,12 +2,13 @@
 @import url('https://www.w3schools.com/w3css/4/w3.css');
 
 #title {
-	padding: 25px; 
-	font-size: 200%;
+  padding: 25px; 
+  font-size: 200%;
 }
 div {
-	text-align: center;
+  text-align: center;
 }
+
 #pass {
     background-color: #4CAF50; /* Green */
 	border-radius:5px;
@@ -20,6 +21,9 @@ div {
     font-size: 16px;
 	transition: all 0.5s;
 	cursor: pointer;
+}
+canvas {
+  height: 300px;
 }
 
 
@@ -115,4 +119,20 @@ div .uploader {
 	pointer-events: none;
 }
 
+button.correct {
+  background-color: green;
+}
 
+button.incorrect {
+  background-color: red;
+}
+
+button.disabled {
+  background-color: rgb(250, 250, 250);
+  color: rgb(170, 170, 170);
+}
+
+div#answer {
+  font-size: 1.5em;
+  font-variant: small-caps;
+}
