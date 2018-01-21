@@ -76,14 +76,19 @@ class Main extends Component {
             {this.state.answer === null ? 'Pass' : 'Continue'}
           </button>
         </div>
-		<div className="w3-light-grey w3-round">
-			<div className="w3-container w3-blue w3-round" style={{width: (index)*100/maxIndex+"%"}}>
-			   {index}/{maxIndex}
-			</div>
-		</div>
+        <div className="w3-light-grey w3-round">
+          <div className="w3-container w3-blue w3-round" style={{width: (index)*100/maxIndex+"%"}}>
+            {index}/{maxIndex}
+          </div>
+        </div>
+        <div>
+          <button id='restart' onClick={restartCallback}>
+            Start Again
+          </button>
+        </div>
       </div>
-    )
-  }
+      )
+}
 }
 
 export default Main

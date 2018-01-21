@@ -56,15 +56,21 @@ class App extends Component {
 
     if (images.length === 0)
       this.setState({
-        error: 'An error occurred while processing images.'
+        error: 'An error occurred while processing your images.'
       })
     else
       this.setState({ loading: false, index: 0, images })
   }
 
   restart = () => {
-    console.log('restarting')
-    this.setState({done: false, images: null, index: 0, score: 0})
+    this.setState({
+      done: false,
+      error: false,
+      loading: false,
+      images: null,
+      index: 0,
+      score: 0
+    })
   }
 
   advance = correct => {
@@ -87,8 +93,8 @@ class App extends Component {
 		<img id="logogif" alt="" src={logo}></img>
 	</button>
     </header>
-      {this.state.loading && <Loading />}
-      {this.state.error && <Error message={this.state.error} />}
+      {this.state.loading && !this.state.error && <Loading />}
+      {this.state.error && <Error message={this.state.error} restartCallback={this.restart} />}
       {!this.state.done && this.state.images && this.state.images.length > 0 && <Main
         image={this.state.images[this.state.index].image}
         rect={this.state.images[this.state.index].faceRectangle}
