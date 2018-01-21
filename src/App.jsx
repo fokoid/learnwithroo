@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import './App.css'
 import { getEmotions, emotionNames, rateLimit } from './emotion-api.js'
-import FocusImage from './focus-image.js'
+import FocusImage from './focus-image.jsx'
 
 // max images imported at a time
 // picked to match per minute rate limit of Emotion API
@@ -14,13 +14,14 @@ class App extends Component {
     score: 0,
     loading: false,
     error: false,
-    num: 0
+    index: 0,
+    images: null
   }
 
   onFileSelected = async e => {
     this.setState({ loading: true })
 
-    let images = [].concat.apply([], await Promise.all(
+    const images = _.shuffle([].concat.apply([], await Promise.all(
       _.map(
         _.take(e.target.files, MAX_IMAGES),
         async image => _.map(
@@ -32,41 +33,18 @@ class App extends Component {
           })
         )
       )
-    ))
+    )))
 
-    images = _.shuffle(images)
-    this.setState({ images, loading: false })
+    this.setState({ loading: false, images })
   }
+
+  onButtonClick = e => void this.setState(({index}) => ({index: index + 1}))
 
   render = () => {
     let picture
     if (this.state.loading){
       picture = <div> Loading </div> 
-    } else if (this.state.images) {
-      if (this.state.images.length >0){
-
-        picture = <div>
-          <div id='progress'>{this.state.num+1}/{this.state.images.length}</div>
-          <div id='score'>{this.state.score}</div>
-          <FocusImage
-            src={window.URL.createObjectURL(this.state.images[this.state.num].image)}
-            rect={this.state.images[this.state.num].faceRectangle}
-            width={300}
-            height={300}
-          />
-          <div id='buttons'>
-            {Object.keys(emotionNames).map(emotion => (
-            <button key={emotion}>
-              {emotionNames[emotion]}
-            </button>
-            ))}
-            <button>Pass</button>
-          </div>
-        </div>
-        } else {
-          picture = <div> No faces found! Please try again! </div>
-          }
-    } else  {
+    } else if (this.state.images === null) {
       picture = <div id='input'>
         <input
           multiple
@@ -75,7 +53,27 @@ class App extends Component {
           onChange={this.onFileSelected}
         />
       </div>
-      }
+    } else {
+        picture = <div>
+          <div id='progress'>{this.state.index + 1}/{this.state.images.length}</div>
+          <div id='score'>{this.state.score}</div>
+          <FocusImage
+            src={window.URL.createObjectURL(this.state.images[this.state.index].image)}
+            rect={this.state.images[this.state.index].faceRectangle}
+            width={300}
+            height={300}
+          />
+          <div id='buttons'>
+            {Object.keys(emotionNames).map(emotion => (
+            <button key={emotion} onClick={this.onButtonClick}>
+              {emotionNames[emotion]}
+            </button>
+            ))}
+            <button>Pass</button>
+          </div>
+        </div>
+        }
+
     return (<div>
       <header id='title'>{this.state.title}</header>
       {picture}

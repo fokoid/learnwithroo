@@ -1,29 +1,29 @@
 import React, {Component} from 'react'
 
-const relu = x => x > 0 ? x : 0
-
 class FocusImage extends Component {
   state = {
     image: null
   }
 
-  render = () => (
-    <canvas
-      ref='canvas'
-      width={this.props.width}
-      height={this.props.height}
-    ></canvas>
-  )
+  render = () => {
+    return (
+      <canvas
+        ref={c => this.canvas = c}
+        width={this.props.width}
+        height={this.props.height}
+      ></canvas>
+    )
+  }
 
   offsetRect = () => {
     const {rect, width, height} = this.props
     const offsetX = (width - rect.width) / 2
     const offsetY = (height - rect.height) / 2
     return {
-      left: relu(rect.left - offsetX),
-      top: relu(rect.top - offsetY),
-      width,
-      height
+      left: rect.left - offsetX,
+      top: rect.top - offsetY,
+      width: width,
+      height: height
     }
   }
 
@@ -32,35 +32,40 @@ class FocusImage extends Component {
     const offsetX = (width - rect.width * 2) / 2
     const offsetY = (height - rect.height * 2) / 2
     return {
-      left: relu(offsetX),
-      top: relu(offsetY),
+      left: offsetX,
+      top: offsetY,
       width: rect.width * 2,
       height: rect.height * 2
     }
   }
 
-  componentDidMount = () => {
+  componentDidMount = () => void this.drawImage()
+  componentWillReceiveProps = () => void this.drawImage()
+
+  drawImage = () => {
     const image = new Image()
-    const {canvas} = this.refs
     image.onload = () => {
-      const context = canvas.getContext('2d')
+      const context = this.canvas.getContext('2d')
+      context.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      context.globalAlpha = 1.0
+      context.fillStyle = 'white'
       const rect = this.offsetRect()
       context.drawImage(
         image,
         rect.left, rect.top, rect.width, rect.height,
-        0, 0, canvas.width, canvas.height
+        0, 0, this.canvas.width, this.canvas.height
       )
       context.globalAlpha = 0.5
       const bRect = this.boundingRect()
-      context.fillRect(0, 0, canvas.width, bRect.top)
+      context.fillRect(0, 0, this.canvas.width, bRect.top)
       context.fillRect(
         0, bRect.top + bRect.height,
-        canvas.width, canvas.height - bRect.top - bRect.height
+        this.canvas.width, this.canvas.height - bRect.top - bRect.height
       )
       context.fillRect(0, bRect.top, bRect.left, bRect.height)
       context.fillRect(
         bRect.left + bRect.width, bRect.top,
-        canvas.width - bRect.left - bRect.width, bRect.height
+        this.canvas.width - bRect.left - bRect.width, bRect.height
       )
     }
     image.src=this.props.src
