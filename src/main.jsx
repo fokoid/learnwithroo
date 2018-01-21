@@ -77,8 +77,8 @@ class Main extends Component {
           </button>
         </div>
 		<div className="w3-light-grey w3-round">
-			<div className="w3-container w3-blue w3-round" style={{width: (index+1)*100/maxIndex+"%"}}>
-			   {index+1}/{maxIndex}
+			<div className="w3-container w3-blue w3-round" style={{width: (index)*100/maxIndex+"%"}}>
+			   {index}/{maxIndex}
 			</div>
 		</div>
       </div>

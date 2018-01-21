@@ -10,7 +10,7 @@ div {
 }
 
 #pass {
-    background-color: #4CAF50; /* Green */
+    background-color: #008CBA; /* Blue */
 	border-radius:5px;
     border: none;
     color: white;
@@ -22,32 +22,21 @@ div {
 	transition: all 0.5s;
 	cursor: pointer;
 }
-canvas {
-  height: 300px;
-}
-
 
 button {
-	margin-right: 50px;
-	margin-left: 50px;
 	margin: 10px;
 	border: none; 
 	background-color: #e7e7e7; 
 	color: black;
 	padding: 10px 15px;
 }
-
-
-
 canvas{
+	height: 300px;
     margin-left: auto;
     margin-right: auto;
     display: block;
 	padding:10px;
 }
-
-
-
 body{
 	font-family: 'Roboto', sans-serif;
 	margin-left: 100px;
@@ -120,11 +109,13 @@ div .uploader {
 }
 
 button.correct {
-  background-color: green;
+  background-color: #4CAF50; /* Green */
+  color: white;
 }
 
 button.incorrect {
-  background-color: red;
+  background-color: #f44336; /* Red */
+  color: white;
 }
 
 button.disabled {
