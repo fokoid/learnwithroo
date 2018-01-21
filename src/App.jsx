@@ -82,8 +82,10 @@ class App extends Component {
   render = () => {
     return <div>
       <header id='title'>
-    {this.state.title} &nbsp;
-    <img id="logogif" alt="" src={logo}></img>
+	  <button id='homebtn' onClick={this.restart}>
+		{this.state.title} &nbsp;
+		<img id="logogif" alt="" src={logo}></img>
+	</button>
     </header>
       {this.state.loading && <Loading />}
       {this.state.error && <Error message={this.state.error} />}

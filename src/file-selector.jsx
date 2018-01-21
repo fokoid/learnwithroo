@@ -19,19 +19,26 @@ class Uploader extends Component {
 } 
 
 const FileSelector = ({callback}) => (
-<div id='input'>
-		<input
-		  multiple
-		  type='file'
-		  id='files'
-		  onChange={(event) => callback(event.target.files)}
-		  className="inputfile"
-		/>
-		<label htmlFor="file"><strong>Choose a file</strong></label>
+<div class="row">
+	<div class="column">
+		<div id='input'>
+				<input
+				  multiple
+				  type='file'
+				  id='files'
+				  onChange={(event) => callback(event.target.files)}
+				  className="inputfile"
+				/>
+				<label htmlFor="file"><strong>Choose a file</strong></label>
 
-		<p>OR</p>
-		<Uploader callback={callback}></Uploader>
-	  </div>
+				<p>OR</p>
+				<Uploader callback={callback}></Uploader>
+		</div>
+	</div>
+	<div class="column">
+		
+	</div>
+</div>
 )
 
 export default FileSelector

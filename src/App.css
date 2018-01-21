@@ -9,6 +9,11 @@ div {
   text-align: center;
 }
 
+.column {
+    float: left;
+    width: 50%;
+}
+
 #pass {
     background-color: #008CBA; /* Blue */
 	border-radius:5px;
@@ -22,13 +27,19 @@ div {
 	transition: all 0.5s;
 	cursor: pointer;
 }
-
 button {
 	margin: 10px;
 	border: none; 
 	background-color: #e7e7e7; 
 	color: black;
 	padding: 10px 15px;
+}
+#homebtn {
+	margin: 0px;
+	border: none; 
+	background-color: transparent; 
+	color: black;
+	padding: 0px;
 }
 canvas{
 	height: 300px;
@@ -127,3 +138,5 @@ div#answer {
   font-size: 1.5em;
   font-variant: small-caps;
 }
+
+
