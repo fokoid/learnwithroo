@@ -37,6 +37,13 @@ class Game extends Component {
   onFileSelected = async (files, event) => {
     this.setState({ loading: true, error: null })
 
+    if (files.length === 0) {
+      this.setState({
+        error: 'No images found.'
+      })
+      return
+    }
+
     const images = _.shuffle([].concat.apply([], await Promise.all(
       _.map(
         _.take(files, MAX_IMAGES),
@@ -53,7 +60,7 @@ class Game extends Component {
 
     if (images.length === 0)
       this.setState({
-        error: 'An error occurred while processing your images.'
+        error: 'No faces were found among the images provided.'
       })
     else
       this.setState({ loading: false, index: 0, images })
