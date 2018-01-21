@@ -1,5 +1,5 @@
 {
-  "name": "facehaste",
+  "name": "learn-react-understand",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -14,6 +14,7 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "react-file-drop": "^0.1.9"
   }
 }
