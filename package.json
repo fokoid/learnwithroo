@@ -15,6 +15,8 @@
   },
   "devDependencies": {
     "lodash": "^4.17.4",
-    "react-file-drop": "^0.1.9"
+    "react-dropzone": "^4.2.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2"
   }
 }
