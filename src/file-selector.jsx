@@ -3,7 +3,9 @@ import Dropzone from 'react-dropzone'
 
 const FileSelector = ({callback}) => (
   <div>
-    <div style={{margin:"20px"}}><h4> Select your image source for the game: </h4></div>
+    <div style={{margin:"20px"}}>
+      <h4>Please select an image source</h4>
+    </div>
     <div id='input'>
       <button id="photolib">
         Curated Collections
