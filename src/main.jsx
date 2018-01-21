@@ -15,24 +15,36 @@ class Main extends Component {
   )
 
   componentWillReceiveProps = () => {
-    this.setState({ answer: null })
+    this.setState({ answer: null, correct: null })
   }
 
+    /*  componentDidMount = () => {
+    this.setState({ imageUrl: window.URL.createObjectURL(this.props.image) })
+  }
+  componentDidUpdate = () => {
+    this.setState({ imageUrl: window.URL.createObjectURL(this.props.image) })
+  }*/
+
   onPassClick = () => {
+    console.log('Entering onPassClick:', this.props, this.state)
     if (this.state.answer !== null) {
       // continue
-      this.props.advanceCallback(this.state.correct)
+      console.log('Calling advance from onPassClick:', this.props, this.state)
+      this.props.advanceCallback(this.props, this.state.correct)
       this.setState({ answer: null })
     } else {
       // pass
       this.setState({ correct: false, answer: 'pass' })
     }
+    console.log('Leaving onPassClick:', this.props, this.state)
   }
 
   onClick = event => {
+    console.log('Entering onClick:', this.props, this.state)
     const answer = event.target.id
     const correct = this.props.correctAnswers.includes(answer)
     this.setState({ correct, answer })
+    console.log('Leaving onClick:', this.props, this.state)
   }
 
   render = () => {
@@ -50,7 +62,7 @@ class Main extends Component {
       <div>
         <div id='score'>SCORE: {score}</div>
         <FocusImage
-          src={window.URL.createObjectURL(image)}
+          src={window.URL.createObjectURL(this.props.image)}
           rect={rect}
           width={300}
           height={300}

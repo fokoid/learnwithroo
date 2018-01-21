@@ -40,7 +40,7 @@ class FocusImage extends Component {
   }
 
   componentDidMount = () => void this.drawImage()
-  componentWillReceiveProps = () => void this.drawImage()
+  componentDidUpdate = () => void this.drawImage()
 
   drawImage = () => {
     const image = new Image()

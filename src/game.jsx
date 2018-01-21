@@ -57,6 +57,7 @@ class Game extends Component {
         )
       )
     )))
+    console.log(images)
 
     if (images.length === 0)
       this.setState({
@@ -78,22 +79,25 @@ class Game extends Component {
   }
 
   advance = correct => {
+    console.log('Entering advance:', this.state)
     this.setState(({images, index, score}) => {
-      index += 1
       if (correct) score += 1
-      if (index === images.length) {
+      if (index > images.length) {
         // completed quiz :)
         return {done: true, score}
       }
-      return {index, score}
+      return {index: index+1, score}
     })
+    console.log('Leaving advance:', this.state)
   }
 
-  render = () => (
+  render = () => {
+    console.log(this.state.index)
+    return (
     <div>
       {this.state.loading && !this.state.error && <Loading />}
       {this.state.error && <Error message={this.state.error} restartCallback={this.restart} />}
-      {!this.state.done && this.state.images && this.state.images.length > 0 && <Main
+      {this.state.images && this.state.index < this.state.images.length && this.state.images.length > 0 && <Main
         image={this.state.images[this.state.index].image}
         rect={this.state.images[this.state.index].faceRectangle}
         correctAnswers={objectNMax(_.pickBy(
@@ -106,14 +110,15 @@ class Game extends Component {
         advanceCallback={this.advance}
         restartCallback={this.restart}
       />}
-      {this.state.done && <Results score={this.state.score} restartCallback={this.restart} />}
+      {this.state.images && this.state.index >= this.state.images.length && <Results score={this.state.score} restartCallback={this.restart} total={this.state.images.length} />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
       <p>
         This is a tool to help autistic children learn to recognize emotions.
         You can read more on the <a href='/about'>about page</a>.
       </p>
     </div>
-  )
+    )
+  }
 }
 
 export default Game
