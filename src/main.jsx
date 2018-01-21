@@ -75,7 +75,7 @@ class Main extends Component {
           <button id='pass' onClick={this.onPassClick}>
             {this.state.answer === null ? 'Pass' : 'Continue'}
           </button>
-		  <button id='restart' onClick={this.props.restartCallback}>
+          <button id='restart' onClick={this.props.restartCallback}>
             Start Again
           </button>
         </div>
@@ -84,7 +84,6 @@ class Main extends Component {
             {index}/{maxIndex}
           </div>
         </div>
-          
       </div>
       )
 }
