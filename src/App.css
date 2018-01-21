@@ -14,7 +14,7 @@ div {
     width: 50%;
 }
 
-#pass {
+#pass, #restart {
     background-color: #008CBA; /* Blue */
 	border-radius:5px;
     border: none;
@@ -27,6 +27,7 @@ div {
 	transition: all 0.5s;
 	cursor: pointer;
 }
+
 button {
 	margin: 10px;
 	border: none; 
@@ -73,6 +74,7 @@ body{
 	width: 40px;
 }
 
+
 /*upload fil page*/
 
 div .uploader {
@@ -80,7 +82,7 @@ div .uploader {
     outline: 2px dashed #1a8cff;
     outline-offset: -10px;
 	width: 50%;
-	height: 300px;
+	height: 200px;
 	color:black; 
 	padding: 20px;
 	margin-top: 20px;
@@ -97,6 +99,16 @@ div .uploader {
 	position: absolute;
 }
 
+#photolib{
+	opacity:1;
+	position: relative; 
+	color: white;
+	font-weight: 4px;
+	background-color: #1A5276;
+	display: inline-block;
+	padding: 5px 10px;
+	margin: 0px;
+}
 .inputfile + label {
     color: white;
     background-color: #1A5276  ;

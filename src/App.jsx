@@ -106,7 +106,8 @@ class App extends Component {
         maxIndex={this.state.images.length}
         score={this.state.score}
         advanceCallback={this.advance}
-      />}
+		restartCallback={this.restart}
+	  />}
       {this.state.done && <Results score={this.state.score} restartCallback={this.restart} />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
     </div>

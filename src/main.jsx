@@ -75,17 +75,16 @@ class Main extends Component {
           <button id='pass' onClick={this.onPassClick}>
             {this.state.answer === null ? 'Pass' : 'Continue'}
           </button>
+		  <button id='restart' onClick={this.props.restartCallback}>
+            Start Again
+          </button>
         </div>
         <div className="w3-light-grey w3-round">
           <div className="w3-container w3-blue w3-round" style={{width: (index)*100/maxIndex+"%"}}>
             {index}/{maxIndex}
           </div>
         </div>
-        <div>
-          <button id='restart' onClick={this.restart}>
-            Start Again
-          </button>
-        </div>
+          
       </div>
       )
 }
