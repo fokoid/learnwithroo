@@ -12,8 +12,8 @@ const API_HEADERS = new Headers({
 })
 
 export const emotionNames = {
-  happy: 'Happy',
-  sad: 'Sad',
+  happiness: 'Happy',
+  sadness: 'Sad',
   disgust: 'Disgusted',
   surprise: 'Surprised',
   fear: 'Afraid',
@@ -32,3 +32,6 @@ export const getEmotions = image => fetch(
 
 // number of allowed queries per minute
 export const rateLimit = 20
+
+// value below which to ignore emotion score
+export const emotionCutoff = 0.3

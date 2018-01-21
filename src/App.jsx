@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import './App.css'
-import { getEmotions, rateLimit } from './emotion-api.js'
+import { getEmotions, rateLimit, emotionCutoff } from './emotion-api.js'
 import Main from './main.jsx'
 import Loading from './loading.jsx'
 import Error from './error.jsx'
@@ -11,12 +11,26 @@ import FileSelector from './file-selector.jsx'
 // picked to match per minute rate limit of Emotion API
 const MAX_IMAGES = rateLimit
 
+const objectMax = obj => Object.keys(obj).reduce(
+  (a, b) => obj[a] > obj[b] ? a : b
+)
+
+const objectNMax = (obj, n) => {
+  if (n === 0 || Object.keys(obj).length === 0)
+    return []
+  const first = objectMax(obj)
+  return [first].concat(
+    objectNMax(_.omit(obj, first), n-1)
+  )
+}
+
 class App extends Component {
   state = {
     title: 'empathizr',
     score: 0,
     loading: false,
     index: 0,
+    done: false,
     images: null,
     error: null
   }
@@ -46,12 +60,23 @@ class App extends Component {
       this.setState({ loading: false, images })
   }
 
-  onButtonClick = e => {
-    this.setState(({index}) => ({index: index + 1}))
+  restart = () => {
+    this.setState({done: false, score: 0})
+  }
+
+  advance = correct => {
+    this.setState(({images, index, score}) => {
+      index += 1
+      if (correct) score += 1
+      if (index === images.length) {
+        // completed quiz :)
+        return {images: null, index: 0, done: true, score}
+      }
+      return {index, score}
+    })
   }
 
   render = () => {
-
     return <div>
       <header id='title'>{this.state.title}</header>
       {this.state.loading && <Loading />}
@@ -59,14 +84,18 @@ class App extends Component {
       {this.state.images && this.state.images.length > 0 && <Main
         image={this.state.images[this.state.index].image}
         rect={this.state.images[this.state.index].faceRectangle}
+        correctAnswers={objectNMax(_.pickBy(
+          this.state.images[this.state.index].scores,
+          val => val > emotionCutoff
+        ), 2)}
         index={this.state.index}
         maxIndex={this.state.images.length}
         score={this.state.score}
-        onButtonClick={this.onButtonClick}
+        advanceCallback={this.advance}
       />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
     </div>
-  }
+    }
 }
 
 export default App

@@ -1,23 +1,41 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 
 #title {
-	padding: 25px; 
-	font-size: 200%;
+  padding: 25px; 
+  font-size: 200%;
 }
 div {
-	text-align: center;
+  text-align: center;
 }
 canvas {
-	height: 300px;
+  height: 300px;
 }
 button {
-	margin: 10px;
-	border: none; 
-	background-color: #e7e7e7; 
-	color: black;
-	padding: 10px 15px;
+  margin: 10px;
+  border: none; 
+  background-color: #e7e7e7; 
+  color: black;
+  padding: 10px 15px;
 }
 
 body{
-	font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+button.correct {
+  background-color: green;
+}
+
+button.incorrect {
+  background-color: red;
+}
+
+button.disabled {
+  background-color: rgb(250, 250, 250);
+  color: rgb(170, 170, 170);
+}
+
+div#answer {
+  font-size: 1.5em;
+  font-variant: small-caps;
 }
