@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import _ from 'lodash'
 import './App.css'
-import { getEmotions, emotionNames, rateLimit } from './emotion-api.js'
-import FocusImage from './focus-image.jsx'
+import { getEmotions, rateLimit } from './emotion-api.js'
+import Main from './main.jsx'
+import Loading from './loading.jsx'
+import Error from './error.jsx'
+import FileSelector from './file-selector.jsx'
 
 // max images imported at a time
 // picked to match per minute rate limit of Emotion API
@@ -13,13 +16,13 @@ class App extends Component {
     title: 'empathizr',
     score: 0,
     loading: false,
-    error: false,
     index: 0,
-    images: null
+    images: null,
+    error: null
   }
 
   onFileSelected = async e => {
-    this.setState({ loading: true })
+    this.setState({ loading: true, error: null })
 
     const images = _.shuffle([].concat.apply([], await Promise.all(
       _.map(
@@ -35,50 +38,34 @@ class App extends Component {
       )
     )))
 
-    this.setState({ loading: false, images })
+    if (images.length === 0)
+      this.setState({
+        error: 'An error occurred while processing images.'
+      })
+    else
+      this.setState({ loading: false, images })
   }
 
-  onButtonClick = e => void this.setState(({index}) => ({index: index + 1}))
+  onButtonClick = e => {
+    this.setState(({index}) => ({index: index + 1}))
+  }
 
   render = () => {
-    let picture
-    if (this.state.loading){
-      picture = <div> Loading </div> 
-    } else if (this.state.images === null) {
-      picture = <div id='input'>
-        <input
-          multiple
-          type='file'
-          id='files'
-          onChange={this.onFileSelected}
-        />
-      </div>
-    } else {
-        picture = <div>
-          <div id='progress'>{this.state.index + 1}/{this.state.images.length}</div>
-          <div id='score'>{this.state.score}</div>
-          <FocusImage
-            src={window.URL.createObjectURL(this.state.images[this.state.index].image)}
-            rect={this.state.images[this.state.index].faceRectangle}
-            width={300}
-            height={300}
-          />
-          <div id='buttons'>
-            {Object.keys(emotionNames).map(emotion => (
-            <button key={emotion} onClick={this.onButtonClick}>
-              {emotionNames[emotion]}
-            </button>
-            ))}
-            <button>Pass</button>
-          </div>
-        </div>
-        }
 
-    return (<div>
+    return <div>
       <header id='title'>{this.state.title}</header>
-      {picture}
+      {this.state.loading && <Loading />}
+      {this.state.error && <Error message={this.state.error} />}
+      {this.state.images && this.state.images.length > 0 && <Main
+        image={this.state.images[this.state.index].image}
+        rect={this.state.images[this.state.index].faceRectangle}
+        index={this.state.index}
+        maxIndex={this.state.images.length}
+        score={this.state.score}
+        onButtonClick={this.onButtonClick}
+      />}
+      {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
     </div>
-    )
   }
 }
 
