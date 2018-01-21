@@ -6,6 +6,7 @@ import { getEmotions, rateLimit, emotionCutoff } from './emotion-api.js'
 import Main from './main.jsx'
 import Loading from './loading.jsx'
 import Error from './error.jsx'
+import Results from './results.jsx'
 import FileSelector from './file-selector.jsx'
 
 // max images imported at a time
@@ -58,11 +59,12 @@ class App extends Component {
         error: 'An error occurred while processing images.'
       })
     else
-      this.setState({ loading: false, images })
+      this.setState({ loading: false, index: 0, images })
   }
 
   restart = () => {
-    this.setState({done: false, score: 0})
+    console.log('restarting')
+    this.setState({done: false, images: null, index: 0, score: 0})
   }
 
   advance = correct => {
@@ -70,8 +72,8 @@ class App extends Component {
       index += 1
       if (correct) score += 1
       if (index === images.length) {
-        // completed quiz :)
-        return {images: null, index: 0, done: true, score}
+      // completed quiz :)
+        return {done: true, score}
       }
       return {index, score}
     })
@@ -79,13 +81,13 @@ class App extends Component {
 
   render = () => {
     return <div>
-		  <header id='title'>
-	  {this.state.title} &nbsp;
-	  <img id="logogif" alt="" src={logo}></img>
-	  </header>
+      <header id='title'>
+    {this.state.title} &nbsp;
+    <img id="logogif" alt="" src={logo}></img>
+    </header>
       {this.state.loading && <Loading />}
       {this.state.error && <Error message={this.state.error} />}
-      {this.state.images && this.state.images.length > 0 && <Main
+      {!this.state.done && this.state.images && this.state.images.length > 0 && <Main
         image={this.state.images[this.state.index].image}
         rect={this.state.images[this.state.index].faceRectangle}
         correctAnswers={objectNMax(_.pickBy(
@@ -97,6 +99,7 @@ class App extends Component {
         score={this.state.score}
         advanceCallback={this.advance}
       />}
+      {this.state.done && <Results score={this.state.score} restartCallback={this.restart} />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
     </div>
     }
