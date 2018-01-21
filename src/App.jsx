@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import _ from 'lodash'
 import './App.css'
 import apiKey from './api-key.js'
+var FileDrop = require("react-file-drop");
 
 // max images imported at a time
 // 20 picked to match per minute rate limit of Emotion API
@@ -44,6 +45,7 @@ class CroppedImage extends Component {
 			
 			let context = this.refs.canvas.getContext('2d')
 			context.imageSmoothingEnabled = false
+			context.webfitImageSmoothingEnabled = false
 			const ratio = Math.max(image.width/this.refs.canvas.width, image.height/this.refs.canvas.height)
 			image.width = image.width/ratio
 			image.height = image.height/ratio
@@ -54,6 +56,23 @@ class CroppedImage extends Component {
 	}
 }
 
+class Uploader extends Component {
+	state = {
+		displayName: "myUploader"
+	}
+	
+	render = () => {
+		return(
+			<div className="uploader">
+				Drag your images here to upload...
+				<FileDrop frame={document} onDrop={this.props.callback}>
+					Drop some files here!
+				</FileDrop>
+			</div>
+		);
+	}
+} 
+
 class App extends Component {
   state = {
     title: 'empathizr',
@@ -62,12 +81,12 @@ class App extends Component {
 	num: 0
   }
 
-  onFileSelected = async e => {
+  onFileSelected = async (files, event) => {
     this.setState({ loading: true })
 
     let images = [].concat.apply([], await Promise.all(
       _.map(
-        _.take(e.target.files, MAX_IMAGES),
+        _.take(files, MAX_IMAGES),
         async image => _.map(
           await getEmotions(image),
           ({faceRectangle, scores}) => ({
@@ -92,8 +111,7 @@ class App extends Component {
 		if (this.state.images.length >0){
 			
 			picture = <div>
-				<div id='progress'>{this.state.num+1}/{this.state.images.length}</div>
-				<div id='score'>{this.state.score}</div>
+				<div className="">{this.state.score}</div>
 				<CroppedImage hidden ref="image"
 				  src={window.URL.createObjectURL(this.state.images[this.state.num].image)}
 				  rect={this.state.images[this.state.num].faceRectangle}
@@ -106,6 +124,11 @@ class App extends Component {
 				</button>
 				))}
 				<button>Pass</button>
+				<div className="w3-light-grey w3-round">
+					<div className="w3-container w3-blue w3-round" style={{width: (this.state.num+1)*100/this.state.images.length+"%"}}>
+					{this.state.num+1}/{this.state.images.length}
+					</div>
+				</div>
 			  </div>
 			</div>
 		} else {
@@ -119,12 +142,15 @@ class App extends Component {
 		  id='files'
 		  onChange={this.onFileSelected}
 		/>
+		<Uploader callback={this.onFileSelected}></Uploader>
 	  </div>
+	  
 	}
 	return (<div>
 	  <header id='title'>{this.state.title}</header>
 	  {picture}
 	</div>
+	
 	)
   }
 }

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://www.w3schools.com/w3css/4/w3.css');
 
 #title {
 	padding: 25px; 
@@ -7,9 +8,20 @@
 div {
 	text-align: center;
 }
-canvas {
-	height: 300px;
+
+buttons {
+	margin-right: 50px;
+	margin-left: 50px;
 }
+
+canvas{
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+	padding:10px;
+}
+
+
 button {
 	margin: 10px;
 	border: none; 
@@ -20,4 +32,28 @@ button {
 
 body{
 	font-family: 'Roboto', sans-serif;
+	margin-left: 100px;
+	margin-right: 100px;
 }
+
+.w3-light-grey {
+	margin-left: 200px;
+	margin-right: 200px;
+}
+
+div .uploader {
+	background-color: #e6f2ff;
+    outline: 2px dashed #1a8cff;
+    outline-offset: -10px;
+	width: 600px;
+	height: 250px;
+	color:black; 
+	padding: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-right: auto;
+	margin-left: auto;
+	vertical-align: middle;
+	display: inline-block;
+}
+
