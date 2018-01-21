@@ -78,7 +78,7 @@ class App extends Component {
       index += 1
       if (correct) score += 1
       if (index === images.length) {
-      // completed quiz :)
+        // completed quiz :)
         return {done: true, score}
       }
       return {index, score}
@@ -88,26 +88,26 @@ class App extends Component {
   render = () => {
     return <div>
       <header id='title'>
-	  <button id='homebtn' onClick={this.restart}>
-		{this.state.title} &nbsp;
-		<img id="logogif" alt="" src={logo}></img>
-	</button>
-    </header>
+        <button id='homebtn' onClick={this.restart}>
+          {this.state.title} &nbsp;
+          <img id="logogif" alt="" src={logo}></img>
+        </button>
+      </header>
       {this.state.loading && !this.state.error && <Loading />}
       {this.state.error && <Error message={this.state.error} restartCallback={this.restart} />}
       {!this.state.done && this.state.images && this.state.images.length > 0 && <Main
         image={this.state.images[this.state.index].image}
         rect={this.state.images[this.state.index].faceRectangle}
         correctAnswers={objectNMax(_.pickBy(
-          this.state.images[this.state.index].scores,
-          val => val > emotionCutoff
+        this.state.images[this.state.index].scores,
+        val => val > emotionCutoff
         ), 2)}
         index={this.state.index}
         maxIndex={this.state.images.length}
         score={this.state.score}
         advanceCallback={this.advance}
-		restartCallback={this.restart}
-	  />}
+        restartCallback={this.restart}
+      />}
       {this.state.done && <Results score={this.state.score} restartCallback={this.restart} />}
       {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
     </div>

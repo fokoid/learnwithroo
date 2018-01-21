@@ -10,125 +10,125 @@ div {
 }
 
 .column {
-    float: left;
-    width: 50%;
+  float: left;
+  width: 50%;
 }
 
 #pass, #restart {
-    background-color: #008CBA; /* Blue */
-	border-radius:5px;
-    border: none;
-    color: white;
-    padding: 7.5px 15px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-	transition: all 0.5s;
-	cursor: pointer;
+  background-color: #008CBA; /* Blue */
+  border-radius:5px;
+  border: none;
+  color: white;
+  padding: 7.5px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  transition: all 0.5s;
+  cursor: pointer;
 }
 
 button {
-	margin: 10px;
-	border: none; 
-	background-color: #e7e7e7; 
-	color: black;
-	padding: 10px 15px;
+  margin: 10px;
+  border: none; 
+  background-color: #e7e7e7; 
+  color: black;
+  padding: 10px 15px;
 }
 #homebtn {
-	margin: 0px;
-	border: none; 
-	background-color: transparent; 
-	color: black;
-	padding: 0px;
+  margin: 0px;
+  border: none; 
+  background-color: transparent; 
+  color: black;
+  padding: 0px;
 }
 canvas{
-	height: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-	padding:10px;
+  height: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  padding:10px;
 }
 body{
-	font-family: 'Roboto', sans-serif;
-	margin-left: 100px;
-	margin-right: 100px;
+  font-family: 'Roboto', sans-serif;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .w3-light-grey {
-	margin-left: 200px;
-	margin-right: 200px;
+  margin-left: 200px;
+  margin-right: 200px;
 }
 
 #score{
-	margin: 0 auto;
-	border-radius: 3px;
-	width: 125px;
-	border: 2px solid black;
-	font-size: 20px; 
-	font-family: Consolas;
-	color: black;
+  margin: 0 auto;
+  border-radius: 3px;
+  width: 125px;
+  border: 2px solid black;
+  font-size: 20px; 
+  font-family: Consolas;
+  color: black;
 }
 
 #logogif{
-	width: 40px;
+  width: 40px;
 }
 
 
 /*upload fil page*/
 
-div .uploader {
-	background-color: #e6f2ff;
-    outline: 2px dashed #1a8cff;
-    outline-offset: -10px;
-	width: 50%;
-	height: 200px;
-	color:black; 
-	padding: 20px;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	margin-right: auto;
-	margin-left: auto;
+div #uploader {
+  background-color: #e6f2ff;
+  outline: 2px dashed #1a8cff;
+  outline-offset: -10px;
+  width: 100%;
+  height: 200px;
+  color:black; 
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .inputfile {
-	width: 100px;
-	height: 200px;
-	opacity: 0;
-	overflow: hidden;
-	position: absolute;
+  width: 100px;
+  height: 200px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
 }
 
 #photolib{
-	opacity:1;
-	position: relative; 
-	color: white;
-	font-weight: 4px;
-	background-color: #1A5276;
-	display: inline-block;
-	padding: 5px 10px;
-	margin: 0px;
+  opacity:1;
+  position: relative; 
+  color: white;
+  font-weight: 4px;
+  background-color: #1A5276;
+  display: inline-block;
+  padding: 5px 10px;
+  margin: 0px;
 }
 .inputfile + label {
-    color: white;
-    background-color: #1A5276  ;
-    display: inline-block;
-	padding: 5px 10px;
-	z-index:-1;
+  color: white;
+  background-color: #1A5276  ;
+  display: inline-block;
+  padding: 5px 10px;
+  z-index:-1;
 }
 
 .inputfile:focus + label,
 .inputfile + label:hover {
-    background-color: #2E86C1 ;
+  background-color: #2E86C1 ;
 }
 
 .inputfile:focus + label {
-	outline: 1px dotted #000;
-	outline: -webkit-focus-ring-color auto 5px;
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
 }
 
 .inputfile + label * {
-	pointer-events: none;
+  pointer-events: none;
 }
 
 button.correct {

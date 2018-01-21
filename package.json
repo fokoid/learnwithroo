@@ -15,6 +15,6 @@
   },
   "devDependencies": {
     "lodash": "^4.17.4",
-    "react-file-drop": "^0.1.9"
+    "react-dropzone": "^4.2.7"
   }
 }
