@@ -82,7 +82,7 @@ class Main extends Component {
           </div>
         </div>
         <div>
-          <button id='restart' onClick={restartCallback}>
+          <button id='restart' onClick={this.restart}>
             Start Again
           </button>
         </div>
