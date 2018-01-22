@@ -9,7 +9,7 @@ import Footer from './footer.jsx'
 
 class App extends Component {
   state = {
-    title: 'LRU',
+    title: 'Learn with roo',
   }
 
   render = () => {
