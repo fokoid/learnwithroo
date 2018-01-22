@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import _ from 'lodash'
-import { getEmotions, rateLimit, emotionCutoff } from './emotion-api.js'
+import { getEmotions, getEmotionsFromUrl, rateLimit, emotionCutoff } from './emotion-api.js'
 import Main from './main.jsx'
 import Loading from './loading.jsx'
 import Error from './error.jsx'
@@ -32,6 +32,32 @@ class Game extends Component {
     done: false,
     images: null,
     error: null
+  }
+
+  onCollectionSelected = async () => {
+    const urls = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(i => `https://learn-react-understand.firebaseapp.com/collections/basic/${i}.jpg`)
+    console.log(urls)
+    const images = _.shuffle([].concat.apply([], await Promise.all(
+      _.map(
+        _.take(urls, MAX_IMAGES),
+        async url => _.map(
+          await getEmotionsFromUrl(url),
+          ({faceRectangle, scores}) => ({
+            url,
+            faceRectangle,
+            scores
+          })
+        )
+      )
+    )))
+    console.log(images)
+
+    if (images.length === 0)
+      this.setState({
+        error: 'No faces were found among the images provided.'
+      })
+    else
+      this.setState({ loading: false, index: 0, images })
   }
 
   onFileSelected = async (files, event) => {
@@ -111,7 +137,7 @@ class Game extends Component {
         restartCallback={this.restart}
       />}
       {this.state.images && this.state.index >= this.state.images.length && <Results score={this.state.score} restartCallback={this.restart} total={this.state.images.length} />}
-      {!this.state.loading && this.state.images === null && <FileSelector callback={this.onFileSelected} />}
+      {!this.state.loading && this.state.images === null && <FileSelector urlCallback={this.onCollectionSelected} fileCallback={this.onFileSelected} />}
       <p>
         This is a tool to help autistic children learn to recognize emotions.
         You can read more on the <a href='/about'>about page</a>.

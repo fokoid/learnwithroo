@@ -10,6 +10,10 @@ const API_HEADERS = new Headers({
   'Content-Type': 'application/octet-stream',
   'Ocp-Apim-Subscription-Key': API_KEY
 })
+const API_HEADERS_URL = new Headers({
+  'Content-Type': 'application/json',
+  'Ocp-Apim-Subscription-Key': API_KEY
+})
 
 export const emotionNames = {
   happiness: 'Happy',
@@ -29,6 +33,14 @@ export const getEmotions = image => fetch(
     body: image
   }
 ).then(response => response.json())
+
+export const getEmotionsFromUrl = url => fetch(
+  API_URL, {
+    method: API_METHOD,
+    headers: API_HEADERS_URL,
+    body: { url }
+  }
+)
 
 // number of allowed queries per minute
 export const rateLimit = 20
