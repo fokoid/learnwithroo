@@ -6,7 +6,7 @@ const Header = ({title}) => (
     <button id='homebtn' onClick={() => {
       window.location.href='/'
     }}>
-      {title} &nbsp;
+    <h1>{title}</h1> &nbsp;
       <img id="logogif" alt="" src={logo}></img>
     </button>
   </header>

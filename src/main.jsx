@@ -48,7 +48,7 @@ class Main extends Component {
   }
 
   render = () => {
-    const { image, rect, index, maxIndex, score } = this.props
+    const { rect, index, maxIndex, score } = this.props
 
     const buttonClass = emotion => {
       if (this.state.answer === null) return undefined
